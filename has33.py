@@ -21,5 +21,5 @@ x1.format()
 x2 = str("vafousk").capitalize()
 x4 = "karolos"
 
-x5 = MyString(x4).capitalize()
-print(x5)
+xx5 = MyString(x4).capitalize()
+print(xx5)
