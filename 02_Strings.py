@@ -24,4 +24,4 @@ print(s.upper()[::-1])  # No Error
 print('Vafouskos'.upper()[::-1])  # No Error
 print('Alex is the best'.split())  # Makes a list divided by blanks
 print('Alex is the best'.split('e'))  # Makes a list divided by e but is are
-# excluded : ['Al', 'x is th', ' b', 'st']
+# excluded : ['Al', 'x is th', ' b', 'st']1
