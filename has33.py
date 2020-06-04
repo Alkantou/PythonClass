@@ -16,10 +16,5 @@ def has_332(nums):
         return False
 
 
-x1 = "vafouskos"
-x1.format()
-x2 = str("vafousk").capitalize()
-x4 = "karolos"
+print(has_332([1,3,3]))
 
-xx5 = MyString(x4).capitalize()
-print(xx5)

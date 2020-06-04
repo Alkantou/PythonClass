@@ -30,8 +30,7 @@ guesses.append(input_number)
 switch = False
 while differnce != 0:
 
-
-    if switch == True:
+    if not switch:
 
         if differnce < abs(int(x) - int(guesses[-2])):
 
@@ -50,7 +49,7 @@ while differnce != 0:
             guesses.append(input_number)
             differnce = abs(input_number - x)
 
-    if switch == False:
+    if switch:
 
         if differnce <= 10:
             print('Warm!')
@@ -67,6 +66,4 @@ while differnce != 0:
             differnce = abs(input_number - x)
             switch = True
 
-
 print(f'You guessed it in {len(guesses)} tries')
-
