@@ -21,26 +21,52 @@
 # notebook has been provided. Good luck!
 import random
 
-x = random.randint(1, 100)
+x = int(random.randint(1, 100))
 print(x)
-guessing_list = [0]
-g = int(input('Enter A number between 1 and 100: '))
-dif = abs(g - x)
-while dif != 0:
-    if dif <= 10:
-        print('Warm!')
-        guessing_list.append(g)
-        g = input('Enter A number between 1 and 100: ')
-        dif = abs(g - x)
-        if dif > abs(int(g) - int(guessing_list[-1])):
+guesses = [0]
+input_number = int(input('Enter A number between 1 and 100: '))
+differnce = int(abs(input_number - x))
+guesses.append(input_number)
+switch = False
+while differnce != 0:
+
+
+    if switch == True:
+
+        if differnce < abs(int(x) - int(guesses[-2])):
+
             print('Warmer!')
+
+            input_number = int(input('Enter A number between 1 and 100: '))
+
+            guesses.append(input_number)
+
+            differnce = abs(input_number - x)
+
         else:
             print('Colder!')
 
-    if int(dif) > 10:
-        print('Cold!')
-        guessing_list.append(g)
-        g = input('Enter A number between 1 and 100: ')
-        dif = abs(g - x)
-print(f'You guessed it in {len(guessing_list)} tries')
+            input_number = int(input('Enter A number between 1 and 100: '))
+            guesses.append(input_number)
+            differnce = abs(input_number - x)
+
+    if switch == False:
+
+        if differnce <= 10:
+            print('Warm!')
+
+            input_number = int(input('Enter A number between 1 and 100: '))
+            guesses.append(input_number)
+            differnce = abs(input_number - x)
+            switch = True
+        else:
+            print('Cold!')
+
+            input_number = int(input('Enter A number between 1 and 100: '))
+            guesses.append(input_number)
+            differnce = abs(input_number - x)
+            switch = True
+
+
+print(f'You guessed it in {len(guesses)} tries')
 
