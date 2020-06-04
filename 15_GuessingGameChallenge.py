@@ -31,18 +31,16 @@ while dif != 0:
         print('Warm!')
         guessing_list.append(g)
         g = input('Enter A number between 1 and 100: ')
-    if dif > abs(int(g) - int(guessing_list[-2])):
+        dif = abs(g - x)
+        if dif > abs(int(g) - int(guessing_list[-1])):
             print('Warmer!')
-            continue
-    else:
+        else:
             print('Colder!')
-            continue
-
 
     if int(dif) > 10:
         print('Cold!')
         guessing_list.append(g)
         g = input('Enter A number between 1 and 100: ')
-
+        dif = abs(g - x)
 print(f'You guessed it in {len(guessing_list)} tries')
 
