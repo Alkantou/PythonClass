@@ -21,9 +21,10 @@ for tup in list2:
 
 for (t1, t2) in list2:
     print(t1)
+    print(t2)
 
 # Dictionaries
-d = {'k1':1,'k2':2,'k3':3}
+d = {'k1': 1,'k2': 2,'k3': 3}
 for item in d:
     print(item)
 for k,v in d.items():
