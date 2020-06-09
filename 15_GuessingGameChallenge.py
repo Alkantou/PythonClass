@@ -25,45 +25,34 @@ x = int(random.randint(1, 100))
 print(x)
 guesses = [0]
 input_number = int(input('Enter A number between 1 and 100: '))
-differnce = int(abs(input_number - x))
+difference = int(abs(input_number - x))
 guesses.append(input_number)
-switch = False
-while differnce != 0:
+first_try = True
+while difference != 0:
 
-    if not switch:
+    if not first_try:
 
-        if differnce < abs(int(x) - int(guesses[-2])):
+        if difference < abs(int(x) - int(guesses[-2])):
 
             print('Warmer!')
-
-            input_number = int(input('Enter A number between 1 and 100: '))
-
-            guesses.append(input_number)
-
-            differnce = abs(input_number - x)
 
         else:
             print('Colder!')
 
-            input_number = int(input('Enter A number between 1 and 100: '))
-            guesses.append(input_number)
-            differnce = abs(input_number - x)
+    if first_try:
 
-    if switch:
+        if difference <= 10:
 
-        if differnce <= 10:
             print('Warm!')
 
-            input_number = int(input('Enter A number between 1 and 100: '))
-            guesses.append(input_number)
-            differnce = abs(input_number - x)
-            switch = True
         else:
+
             print('Cold!')
 
-            input_number = int(input('Enter A number between 1 and 100: '))
-            guesses.append(input_number)
-            differnce = abs(input_number - x)
-            switch = True
+        first_try = False
+
+    input_number = int(input('Enter A number between 1 and 100: '))
+    guesses.append(input_number)
+    difference = abs(input_number - x)
 
 print(f'You guessed it in {len(guesses)} tries')
