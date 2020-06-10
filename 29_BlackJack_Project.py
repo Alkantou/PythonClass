@@ -23,6 +23,9 @@ from typing import List
 # Feel free to expand this game. Try including multiple players. Try adding
 # in Double-Down and card splits! Remember to you are free to use any resources
 # you want.
+
+# Game Runner
+# 1000 total balance
 class Card:
 
     def __init__(self, suit, rank):
@@ -30,7 +33,7 @@ class Card:
         self.rank = rank
 
     def __str__(self):
-        return self.rank + ' of ' + self.suit
+        return str(self.rank) + ' of ' + self.suit
 
 
 class Deck:
@@ -41,6 +44,10 @@ class Deck:
             for n in range(1, 14):
                 self.cards.append(Card(c, n))
         random.shuffle(self.cards)
+
+    def hit(self):
+        hit1 = self.deck.cards.pop()
+        return hit1
 
 
 class Player:
@@ -70,14 +77,11 @@ class Player:
             sum += c.rank
 
 
+
 class Dealer:
 
     def __init__(self):
         self.deck = Deck()
-
-    def serve(self):
-        hit = self.deck.cards.pop()
-        return hit
 
 
 class BlackJack:
@@ -90,10 +94,9 @@ class BlackJack:
         bet_amount = input('Place Bet:')
         self.player.place_bet(int(bet_amount))
 
+    # blackjack = BlackJack(Player('Militiadis', 1000))
 
-blackjack = BlackJack(Player('Militiadis', 1000))
-
-while True:
+    #while True:
     print('Welcome to BlackJack! Get as close to 21 as you can without going over!\n\
     Dealer hits until she reaches 17. Aces count as 1 or 11.')
 
