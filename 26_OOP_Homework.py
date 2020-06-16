@@ -46,3 +46,4 @@ c1 = Cylinder(10, 10)
 c2 = Cylinder(2, 3)
 for cyl in [c1, c2]:
     print('The cylinder with height: %s and radius: %s, has volume: %s and surface area: %s' % (cyl.height, cyl.radius, cyl.volume(),cyl.surface_area()))
+print(c1.volume())

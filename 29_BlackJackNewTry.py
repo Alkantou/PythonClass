@@ -15,6 +15,7 @@ class Card:
 class Deck:
 
     def __init__(self):
+
         self.cards = []
         for c in ['Hearts', 'Diamonds', 'Clubs', 'Spades']:
             for n in range(1, 14):
@@ -24,6 +25,11 @@ class Deck:
     def deal(self):
         single_card = self.cards.pop()
 
-class Hand:
+# class Hand:
+#
+#     def __init__(self):
 
-    def __init__(self):
+
+
+deck = Deck()
+print(list(tuple(deck.cards)))
