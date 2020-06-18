@@ -4,22 +4,22 @@ from typing import List
 
 def game_is_not_over(player):
     if player.current_hand_value() < 21:
-        return True
+        return True, None
     elif player.current_hand_value() > 21:
-        print('Got Busted!')
-
-        return False
+        return False, 'Got Busted!'
     else:
-        print('BlackJack!')
-        return False
+        return False, 'BlackJack!'
 
 
-def my_input(is_user_human: bool, computer_input: List[str], input_message: str):
+def my_input(is_user_human: bool, computer_input: List[str], input_message: str, output_accumulator: List[str]):
+    output_accumulator.append(input_message)
     if is_user_human:
         x = input(input_message)
         return x
     else:
-        return computer_input.pop()
+        input1 = computer_input.pop()
+        output_accumulator.append(input1)
+        return input1
 
 def my_print(is_user_human: bool, output_accumulator:List[str],output_message:str):
     if is_user_human:
@@ -30,7 +30,8 @@ def my_print(is_user_human: bool, output_accumulator:List[str],output_message:st
 
 def run_game(test_cards=None, is_user_human=True, computer_input: List[str] = None, output_accumulator:List[str]=None):
     deck = Deck(test_cards)
-    player1 = Player(my_input(is_user_human, computer_input, 'If you want riches beyond imagination enter your name:'),
+    player1 = Player(my_input(is_user_human, computer_input, 'If you want riches beyond imagination enter your name:',
+                              output_accumulator),
                      1000)
     dealer = Player('dealer', 0)
 
@@ -40,22 +41,15 @@ def run_game(test_cards=None, is_user_human=True, computer_input: List[str] = No
                              'Welcome to Black Jack, %s! Would you like to place a bet or cash out? \n'
                              'Your current balance is: %s DOLLA (OUR money)!'
                              ' Press b for bet or c for cash out:' % (
-                                 player1.player_name, player1.balance))
+                                 player1.player_name, player1.balance), output_accumulator)
 
         if decision1 == 'b':
-            x = int(my_input(is_user_human, computer_input, "Place your Bet:"))
+            x = int(my_input(is_user_human, computer_input, "Place your Bet:", output_accumulator))
             if x == 0:
                 my_print(is_user_human,output_accumulator,'You are broke!')
                 continue
             y = player1.place_bet(bet_amount=x)
             my_print(is_user_human,output_accumulator,'Current Balance is:' + str(player1.balance))
-
-
-
-
-
-
-
 
         elif decision1 == 'c':
 
@@ -88,20 +82,16 @@ def run_game(test_cards=None, is_user_human=True, computer_input: List[str] = No
 
         my_print(is_user_human,output_accumulator,player1.player_name + " you have %s " % player1.current_hand)
         my_print(is_user_human,output_accumulator,str.format('Dealer has %s' % dealer.current_hand[0], 'and a <Hidden Card>'))
-        while game_is_not_over(player1):
+        while game_is_not_over(player1)[0]:
             decision2 = my_input(is_user_human, computer_input,
-                                 'Would you like to hit or stand? Press h to hit or s to stand:')
+                                 'Would you like to hit or stand? Press h to hit or s to stand:', output_accumulator)
             if decision2 == 'h':
                 current_hand = deck.hit()
                 player1.add_card_to_hand(current_hand)
-                my_print(is_user_human,output_accumulator,str.format('Your cards are:', player1.current_hand))
+                my_print(is_user_human, output_accumulator, str.format('Your cards are:', player1.current_hand))
 
-                my_print(is_user_human,output_accumulator,"The sum of your current hand is:", str(player1.current_hand_value()))
-
-
-
-
-
+                my_print(is_user_human, output_accumulator, "The sum of your current hand is:",
+                         str(player1.current_hand_value()))
             elif decision2 == 's':
                 while dealer.current_hand_value() <= 17:
                     dealer_hand = deck.hit()
@@ -112,19 +102,20 @@ def run_game(test_cards=None, is_user_human=True, computer_input: List[str] = No
                         my_print(is_user_human,output_accumulator,"Dealer's sum of cards is:", dealer.current_hand_value())
                         break
                     elif dealer.current_hand_value() == 21:
-                        my_print(is_user_human,output_accumulator,"Dealer hit a BlackJack:", dealer.current_hand_value())
+                        my_print(is_user_human, output_accumulator, "Dealer hit a BlackJack:",
+                                 dealer.current_hand_value())
                         break
                     else:
-                        my_print(is_user_human,output_accumulator,'Dealer got busted!')
+                        my_print(is_user_human, output_accumulator, 'Dealer got busted!')
                         break
-
             else:
                 # raise ValueError('Wrong Command!')
-                my_print(is_user_human,output_accumulator,'Wrong Command. Are you stupid?')
+                my_print(is_user_human, output_accumulator, 'Wrong Command. Are you stupid?')
 
-        decide_winner(dealer, player1)
+        _, message = decide_winner(dealer, player1)
+        my_print(is_user_human, output_accumulator, message)
 
         player1.reset_hand()
         dealer.reset_hand()
 
-    my_print(is_user_human,output_accumulator,str.format('Game is Over! You won:', player1.balance, player1.wins, player1.losses, player1.pushes, player1.busts))
+    my_print(is_user_human,output_accumulator,str.format(f'Game is Over! You won:, {player1.balance},{player1.wins}, {player1.losses}, {player1.pushes}, {player1.busts}'))

@@ -7,4 +7,4 @@ run_game(test_cards=test_cards[::-1], is_user_human=False, computer_input=['ALex
          output_accumulator=output_accumulator)
 
 # run_game()
-print(output_accumulator)
+print("\n".join(output_accumulator))

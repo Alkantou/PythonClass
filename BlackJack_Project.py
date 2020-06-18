@@ -61,7 +61,7 @@ class Player:
     def bet_won_or_lost(self,bet_won):
         if bet_won is True:
             self.balance += 2 * self.current_bet
-            print("Your current balance is:", self.balance)
+            return "Your current balance is:" + str(self.balance)
 
 
     def place_bet(self: int, bet_amount: int) -> int:
@@ -120,29 +120,26 @@ def decide_winner(input_dealer, input_player)->str:
 
     if (input_dealer.current_hand_value() < input_player.current_hand_value() \
         and input_player.current_hand_value() <= 21) or input_dealer.current_hand_value() > 21:
-            print('%s wins' % input_player.player_name)
 
             input_player.wins += 1
 
             input_player.bet_won_or_lost(True)
 
-            return "player"
+            return "player", str.format(f"{input_player.player_name} wins")
 
     elif input_dealer.current_hand_value() == input_player.current_hand_value():
-        print('Push')
         input_player.pushes += 1
 
 
         input_player.return_balance()
-        return "push"
+        return "push", 'Push'
     else:
         if input_player.current_hand_value() > 21:
             input_player.busts += 1
-        print("Dealer wins!")
         input_player.losses += 1
 
 
-        return 'dealer'
+        return 'dealer', 'Delaer wins!'
 
 
 
