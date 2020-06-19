@@ -52,6 +52,7 @@ class Player:
         self.player_name = player_name
         self.balance = balance
         self.current_hand: List[Card] = []
+        # self.current_hand_numbers = []
         self.current_bet = 0
         self.wins = 0
         self.losses = 0
@@ -73,20 +74,23 @@ class Player:
 
     def add_card_to_hand(self, card: Card):
         self.current_hand.append(card)
+        # self.current_hand_numbers.append(card.rank)
 
     def current_hand_value(self) -> int:
         sum = 0
         for c in self.current_hand:
             if c.rank > 10:  # Figures
                 sum += 10
-            elif c.rank == 1:
+            elif c.rank != 1:
+                sum += c.rank
+
+        for c in self.current_hand:
+            if c.rank == 1:
                 if sum + 11 > 21:
                     sum += 1
                 else:
                     sum += 11
-            else:
-                sum += c.rank
-        return  sum
+        return sum
 
     def reset_hand(self):
         self.current_hand = []
@@ -94,6 +98,20 @@ class Player:
     def return_balance(self):
         self.balance += self.current_bet
 
+    def first_draw_of_cards(self, deck):
+        for _ in range(2):
+            self.take_card_from_deck(deck)
+
+    def take_card_from_deck(self, deck):
+        current_hand = deck.hit()
+        self.add_card_to_hand(current_hand)
+
+    def dealer_draw_till_17(self, deck):
+        current_hands = []
+        while self.current_hand_value() <= 17:
+            self.take_card_from_deck(deck)
+            current_hands.append(self.current_hand.copy())
+        return current_hands
 
     # Test: Create a Player. create card 1, 2, 3, Call player_add_card_to_hand 1,2,3
     # asser
