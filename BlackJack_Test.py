@@ -60,3 +60,6 @@ def test_double():
     run_game(test_cards=test_cards[::-1], is_user_human=False, computer_input=['ALex', 'b', '30', 'd', 'c'][::-1],
              output_accumulator=output_accumulator)
     assert output_accumulator[-1] == 'Game is Over! You won:, 1060,1, 0, 0, 0'
+
+def vafouskos():
+    pass
